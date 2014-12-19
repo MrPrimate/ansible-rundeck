@@ -31,6 +31,29 @@
     - users
     - groups
 
+- name: Rundeck | Ensure rundeck group exists for RedHat
+  group: >
+    name=rundeck
+    system=yes
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - rundeck
+    - users
+    - groups
+
+- name: Rundeck | Ensure rundeck user is apart of rundeck group for RedHat
+  user: >
+    name=rundeck
+    groups=rundeck
+    createhome=yes
+    system=yes
+  when: ansible_os_family == 'RedHat'
+  sudo: yes
+  tags:
+    - rundeck
+    - users
+    - groups
+
 - name: Rundeck | Ensure tmp directory has correct permissions
   file:
     path: /tmp/rundeck
